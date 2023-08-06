@@ -10,6 +10,7 @@ from django.core.exceptions import PermissionDenied
 from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
 from vendor.models import Vendor
+from django.views.decorators.csrf import csrf_exempt
 
 
 # restrict the  vendor from accessing the customer page
@@ -26,6 +27,7 @@ def check_role_customer(user):
     else:
         raise PermissionDenied
 
+@csrf_exempt
 def registerUser(request):
     if request.user.is_authenticated:
         messages.warning(request, 'You are already logged in!')
@@ -52,7 +54,7 @@ def registerUser(request):
 
             #send verification email
             mail_subject = 'Please activate your account'
-            email_template = 'accounts/emails/account_verification_email.html'
+            email_template = 'accounts/email/account_verification_email.html'
             send_verification_email(request, user, mail_subject, email_template)
             messages.success(request, "your account has been registered Sucessfully")
             return redirect('registerUser')
@@ -86,8 +88,8 @@ def registerVendor(request):
             user.save()
             vendor = v_form.save(commit=False)
             vendor.user = user
-            # vendor_name = v_form.cleaned_data['vendor_name']
-            # vendor.vendor_slug = slugify(vendor_name)+'-'+str(user.id)
+            vendor_name = v_form.cleaned_data['vendor_name']
+            vendor.vendor_slug = slugify(vendor_name)+'-'+str(user.id)
             user_profile = UserProfile.objects.get(user=user)
             vendor.user_profile = user_profile
             vendor.save()
@@ -96,7 +98,7 @@ def registerVendor(request):
 
             # send verificartion
             mail_subject = 'Please activate your account'
-            email_template = 'accounts/emails/account_verification_email.html'
+            email_template = 'accounts/email/account_verification_email.html'
             send_verification_email(request, user, mail_subject, email_template)
 
             messages.success(request, 'your account has been registered Sucessfully')
