@@ -13,8 +13,7 @@
 								<h1 style="font-size: 40px; color: #505050; text-transform: uppercase; line-height: 50px; margin-bottom: 25px; text-align:center;">
 									We are in the business of food<br>our restaurants do</h1>
 								<p style="font-size: 18px; letter-spacing: 1px; color: #505050; text-align:center;">
-									Ridiculus sociosqu
-									cursus neque cursus curae ante scelerisque vehicula.</p>
+									आम्ही आमच्या रेस्टॉरंट्सच्या खाद्यपदार्थाच्या व्यवसायात आहोत </p>
 							</div>
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
@@ -107,46 +106,36 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0 !important; padding-left: 0 !important;">
 							<div class="company-logo">
 								<ul>
+									{% for vendor in vendors %}
 									<li class="has-border">
 										<figure>
-											<a href="#"><img src="{% static 'extra-images/listing-logo18.png'%}" class="attachment-full size-full wp-post-image" alt=""></a>
+											{% if vendor.user_profile.profile_picture %}
+											<a href="{% url 'vendor_detail' vendor.vendor_slug %}"><img src="{{ vendor.user_profile.profile_picture.url }}" height="125" class="attachment-full size-full wp-post-image" alt=""></a>
+											{% else %}
+											<a href="{% url 'vendor_detail' vendor.vendor_slug %}"><img src="{% static 'images/default-profile.png' %}" height="125" class="attachment-full size-full wp-post-image" alt=""></a>
+											{% endif %}
 										</figure>
+										
 									</li>
+									{% endfor %}
+									{% comment %} {% for vendor in vendors %}
 									<li class="has-border">
 										<figure>
-											<a href="#"><img src="{% static 'extra-images/fb-restaurant-02.jpg'%}" class="attachment-full size-full wp-post-image" alt=""></a>
+											{% if vendor.user_profile.profile_picture %}
+											<a href="#"><img src="{{ vendor.user_profile.profile_picture.url}}" class="attachment-full size-full wp-post-image" alt=""></a>
+											{% else %}
+											<a href="#"><img src="{% static 'images/default-profile.png' %}"  class="attachment-full size-full wp-post-image" alt=""></a>
+											{% endif%}
 										</figure>
-									</li>
-									<li class="has-border">
 										<figure>
-											<a href="#"><img src="assets/extra-images/fb-restaurant-04.jpg" class="attachment-full size-full wp-post-image" alt=""></a>
+											{% if vendor.user_profile.profile_picture %}
+											<a href="#"><img src="{{ vendor.user_profile.profile_picture.url}}" class="attachment-full size-full wp-post-image" alt=""></a>
+											{% else %}
+											<a href="#"><img src="{% static 'images/default-profile.png' %}"  class="attachment-full size-full wp-post-image" alt=""></a>
+											{% endif%}
 										</figure>
 									</li>
-									<li class="has-border">
-										<figure>
-											<a href="#"><img src="assets/extra-images/fb-restaurant-06.jpg" class="attachment-full size-full wp-post-image" alt=""></a>
-										</figure>
-									</li>
-									<li class="has-border">
-										<figure>
-											<a href="#"><img src="assets/extra-images/xlisting-logo03.png.pagespeed.ic_.aT-o9LinEJ.png" class="attachment-full size-full wp-post-image" alt=""></a>
-										</figure>
-									</li>
-									<li class="has-border">
-										<figure>
-											<a href="#"><img src="assets/extra-images/listing-logo09.png" class="attachment-full size-full wp-post-image" alt=""></a>
-										</figure>
-									</li>
-									<li class="has-border">
-										<figure>
-											<a href="#"><img src="assets/extra-images/listing-logo18.png" class="attachment-full size-full wp-post-image" alt=""></a>
-										</figure>
-									</li>
-									<li class="has-border">
-										<figure>
-											<a href="#"><img src="assets/extra-images/fb-restaurant-09.png" class="attachment-full size-full wp-post-image" alt=""></a>
-										</figure>
-									</li>
+									{% endfor %}  {% endcomment %}
 								</ul>
 							</div>
 						</div>
@@ -161,70 +150,45 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<div class="element-title align-center">
 								<h2>Choose From Most Popular Restaurants</h2>
-								<p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+								<p>सर्वाधिक लोकप्रिय रेस्टॉरंटमधून निवडा</p>
 							</div>
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<div class="listing fancy">
 								<ul class="row">
+									{% for vendor in vendors %}
 									<li class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 										<div class="list-post featured">
 											<div class="img-holder">
-												<figure><a href="#"><img src="assets/extra-images/listing-logo18.png" class="img-thumb wp-post-image" alt=""></a></figure>
-												<span class="restaurant-status close">
-													<em class="bookmarkRibbon"></em>Close
-												</span>
-											</div>
-											<div class="text-holder">
-												<div class="list-rating">
-													<div class="rating-star">
-														<span class="rating-box" style="width: 100%;"></span>
-													</div>
-													<span class="reviews">(1)</span>
-												</div>
-												<div class="post-title">
-													<h5>
-														<a href="listing-detail.html">Restaurant Demo</a>
-														<span class="sponsored text-color">Sponsored</span>
-													</h5>
-												</div>
-												<address> <span>Type of food : </span> Apple Juice</address>
-											</div>
-											
-										</div>
-									</li>
-									
-									
-									
-									
-									<li class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-										<div class="list-post featured">
-											<div class="img-holder">
-												<figure><a href="#"><img src="assets/extra-images/listing-logo09.png" class="img-thumb wp-post-image" alt=""></a></figure>
+												<figure>
+													<a href="#">
+														{% if vendor.user_profile.profile_picture %}
+														<img src="{{ vendor.user_profile.profile_picture.url}}" class="img-thumb wp-post-image" alt="">
+														{% else %}
+														<img src="{% static 'images/default-profile.png' %}" class="img-thumb wp-post-image" alt="">
+														{% endif %}
+
+													</a>
+												</figure>
 												<span class="restaurant-status open">
-													<em class="bookmarkRibbon"></em>open
+													<em class="bookmarkRibbon"></em>Open
 												</span>
 											</div>
 											<div class="text-holder">
-												<div class="list-rating">
-													<div class="rating-star">
-														<span class="rating-box" style="width: 100%;"></span>
-													</div>
-													<span class="reviews">(1)</span>
-												</div>
+												
 												<div class="post-title">
 													<h5>
-														<a href="listing-detail.html">Classic Restaurant</a>
-														<span class="sponsored text-color">Sponsored</span>
+														<a href="listing-detail.html">{{ vendor }}</a>
 													</h5>
 												</div>
-												<address> <span>Type of food : </span> Chicken Roast, Chines
-													Soup, Cold
-													Coffee, Cold Drink, Hot Dogs</address>
+												{% if vendor.user_profile.city and vendor.user_profile.state and vendor.user_profile.pin_code %}
+												<span>{{ vendor.user_profile.city }}, {{ vendor.user_profile.state }}, {{ vendor.user_profile.pin_code }}  </span>
+												{% endif %}
 											</div>
 											
 										</div>
 									</li>
+									{% endfor %}	
 								</ul>
 							</div>
 						</div>
@@ -236,4 +200,4 @@
 			<!-- Home Pages Elements End  -->
 		</div>
 		<!-- Main Section End -->
-		{%endblock%}
+		{% endblock %}

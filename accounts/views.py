@@ -11,6 +11,7 @@ from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
 from vendor.models import Vendor
 from django.views.decorators.csrf import csrf_exempt
+from django.template.defaultfilters import slugify
 
 
 # restrict the  vendor from accessing the customer page
