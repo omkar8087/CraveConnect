@@ -24,51 +24,52 @@ function onPlaceChanged() {
     }
 
     // get the address components and assign them to the fields
-    // // console.log(place);
+    // console.log(place);
     var geocoder = new google.maps.Geocoder()
     var address = document.getElementById('id_address').value
     console.log(address)
+    
 
-    // geocoder.geocode({'address': address}, function(results, status){
-    //     // console.log('results=>', results)
-    //     // console.log('status=>', status)
-    //     if(status == google.maps.GeocoderStatus.OK){
-    //         var latitude = results[0].geometry.location.lat();
-    //         var longitude = results[0].geometry.location.lng();
+    geocoder.geocode({'address': address}, function(results, status){
+        // console.log('results=>', results)
+        // console.log('status=>', status)
+        if(status == google.maps.GeocoderStatus.OK){
+            var latitude = results[0].geometry.location.lat();
+            var longitude = results[0].geometry.location.lng();
 
-    //         // console.log('lat=>', latitude);
-    //         // console.log('long=>', longitude);
-    //         $('#id_latitude').val(latitude);
-    //         $('#id_longitude').val(longitude);
+            // console.log('lat=>', latitude);
+            // console.log('long=>', longitude);
+            $('#id_latitude').val(latitude);
+            $('#id_longitude').val(longitude);
 
-    //         $('#id_address').val(address);
-    //     }
-    // });
+            $('#id_address').val(address);
+        }
+    });
 
-    // // loop through the address components and assign other address data
-    // console.log(place.address_components);
-    // for(var i=0; i<place.address_components.length; i++){
-    //     for(var j=0; j<place.address_components[i].types.length; j++){
-    //         // get country
-    //         if(place.address_components[i].types[j] == 'country'){
-    //             $('#id_country').val(place.address_components[i].long_name);
-    //         }
-    //         // get state
-    //         if(place.address_components[i].types[j] == 'administrative_area_level_1'){
-    //             $('#id_state').val(place.address_components[i].long_name);
-    //         }
-    //         // get city
-    //         if(place.address_components[i].types[j] == 'locality'){
-    //             $('#id_city').val(place.address_components[i].long_name);
-    //         }
-    //         // get pincode
-    //         if(place.address_components[i].types[j] == 'postal_code'){
-    //             $('#id_pin_code').val(place.address_components[i].long_name);
-    //         }else{
-    //             $('#id_pin_code').val("");
-    //         }
-    //     }
-    // }
+    // loop through the address components and assign other address data
+    console.log(place.address_components);
+    for(var i=0; i<place.address_components.length; i++){
+        for(var j=0; j<place.address_components[i].types.length; j++){
+            // get country
+            if(place.address_components[i].types[j] == 'country'){
+                $('#id_country').val(place.address_components[i].long_name);
+            }
+            // get state
+            if(place.address_components[i].types[j] == 'administrative_area_level_1'){
+                $('#id_state').val(place.address_components[i].long_name);
+            }
+            // get city
+            if(place.address_components[i].types[j] == 'locality'){
+                $('#id_city').val(place.address_components[i].long_name);
+            }
+            // get pincode
+            if(place.address_components[i].types[j] == 'postal_code'){
+                $('#id_pin_code').val(place.address_components[i].long_name);
+            }else{
+                $('#id_pin_code').val("");
+            }
+        }
+    }
 
 }
 
