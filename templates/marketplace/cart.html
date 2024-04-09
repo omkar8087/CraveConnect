@@ -94,7 +94,7 @@
                                                     <li style="list-style-type: none;">
                                                         {{ key }} <small>({{ i }}%)</small>
                                                         <span class="price float-right">
-                                                            <span class="currency">$</span>
+                                                            <span class="currency">₹</span>
                                                             <span id="tax-{{ key }}">{{ j }}</span>
                                                         </span>
                                                     </li>
@@ -109,7 +109,7 @@
                                                 </span>
                                             </li>
 
-                                            <a href="#" class="btn btn-danger w-100 p-2 mt-3">PROCEED TO CHECKOUT</a>
+                                            <a href="{% url 'checkout' %}" class="btn btn-danger w-100 p-2 mt-3">PROCEED TO CHECKOUT</a>
                                         </ul>
                                     </div>
                                     
@@ -128,3 +128,10 @@
 
 
 {% endblock %}
+
+if superuser:
+    print("Username:", jadhavomkar8087@gmail.com)
+    print("Email:", jadhavomkar8087@gmail.com)
+    # Add any other fields you want to display
+else:
+    print("No superuser found.")
