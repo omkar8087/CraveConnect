@@ -58,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'orders.request_object.RequestObjectMiddleware', # custom middleware created to access the request object in models.py
 ]
 
 ROOT_URLCONF = 'foodonline_main.urls'
@@ -166,7 +167,9 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'foodOnline Marketplace <craveconnectz@gmail.com>'
 
-GOOGLE_API_KEY = config('GOOGLE_API_KEY') 
+# GOOGLE_API_KEY = config('GOOGLE_API_KEY')
+
+GOOGLE_API_KEY = 'AIzaSyB23QLUHcoA18LrqXG07Q8t4G_SBIhri9Y' 
 
 os.environ['PATH'] = os.path.join(BASE_DIR, 'env\Lib\site-packages\osgeo') + ';' + os.environ['PATH']
 os.environ['PROJ_LIB'] = os.path.join(BASE_DIR, 'env\Lib\site-packages\osgeo\data\proj') + ';' + os.environ['PATH']

@@ -7,13 +7,13 @@
 <!-- Main Section Start -->
 <div class="main-section">
     
-    {% include 'customers/cover.html' %}
+    {% include 'includes/cover.html' %}
     <div class="page-section account-header buyer-logged-in">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <!-- Load the sidebar here -->
-                    {% include 'includes/c_sidebar.html' %}
+                    {% include 'includes/v_sidebar.html' %}
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                     <div class="user-dashboard loader-holder">
@@ -23,7 +23,7 @@
                                 <div class="justify-content-center row">
                                     <div class="col-md-12">
                                         <div class="bg-white p-1">
-                                            <img src="{% static 'logo/CraveConnect.png' %}" alt="CraveConnect Logo" width="300">
+                                            <img src="{% static 'logo/CraveConnect.png' %}" alt="foodOnline Logo" width="300">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <h4 class="mt-2 mb-3">Thank you for your order.</h4>
@@ -64,7 +64,7 @@
                                                             <a class="text-muted" href="{% url 'vendor_detail' item.fooditem.vendor.vendor_slug %}">{{ item.fooditem.vendor.vendor_name }}</a>
                                                         </td>
                                                         <td>{{ item.quantity }} QTY</td>
-                                                        <td>₹{{ item.fooditem.price }}</td>
+                                                        <td>₹ {{ item.fooditem.price }}</td>
                                                     </tr>
                                                     {% endfor %}
                                                 </tbody>
@@ -101,7 +101,7 @@
                                                             TOTAL
                                                             <span class="price float-right">
                                                                 <span class="currency">₹</span>
-                                                                <span id="total">{{ order.total }}</span>
+                                                                <span id="total">{{ grand_total | floatformat:2 }}</span>
                                                             </span>
                                                         </li>
                                                     </ul>
