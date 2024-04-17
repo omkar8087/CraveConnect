@@ -1,10 +1,33 @@
 from django import forms
 from . models import User, UserProfile
 from .validators import allow_only_images_validator
+from django.core.validators import RegexValidator, EmailValidator
 
+# Custom validator for password
+password_validator = RegexValidator(
+    regex=r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$',
+    message="Password must be at least 8 characters long and include at least one number and one special character."
+)
 
+first_name_validator = RegexValidator(
+    regex=r'^[A-Za-z]{2,}$',
+    message="First name must be at least 2 characters long and include only letters."
+)
+
+last_name_validator = RegexValidator(
+    regex=r'^[A-Za-z]{2,}$',
+    message="last name must be at least 2 characters long and include only letters."
+)
+
+# Custom email validator if you need specific criteria
+email_validator = EmailValidator(
+    message="Enter a valid email address."
+)
 class UserForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
+    first_name = forms.CharField(validators=[first_name_validator])
+    last_name = forms.CharField(validators=[last_name_validator])
+    email = forms.EmailField(validators=[email_validator])  # Using the custom or Django's built-in EmailValidator
+    password = forms.CharField(widget=forms.PasswordInput(), validators=[password_validator])
     confirm_password = forms.CharField(widget=forms.PasswordInput())
     class Meta:
         model = User

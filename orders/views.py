@@ -7,7 +7,7 @@ from menu.models import FoodItem
 from .forms import OrderForm
 from .models import Order, OrderedFood, Payment
 import simplejson as json
-from .utils import generate_order_number
+from .utils import generate_order_number, order_total_by_vendor
 from accounts.utils import send_notification
 from django.contrib.auth.decorators import login_required
 import razorpay
@@ -151,7 +151,7 @@ def payments(request):
             ordered_food.amount = item.fooditem.price * item.quantity # total amount
             ordered_food.save()
 
-        return HttpResponse('saved ordered food')
+        
 
         # SEND ORDER CONFIRMATION EMAIL TO THE CUSTOMER
         mail_subject = 'Thank you for ordering with us.'
@@ -198,7 +198,7 @@ def payments(request):
                 send_notification(mail_subject, mail_template, context)
 
         # CLEAR THE CART IF THE PAYMENT IS SUCCESS
-        # cart_items.delete() 
+        cart_items.delete() 
 
         # RETURN BACK TO AJAX WITH THE STATUS SUCCESS OR FAILURE
         response = {
@@ -207,33 +207,6 @@ def payments(request):
         }
         return JsonResponse(response)
     return HttpResponse('Payments view')
-
-# def order_complete(request):
-#     order_number = request.GET.get('order_no')
-#     transaction_id = request.GET.get('trans_id')
-
-    
-#     order = Order.objects.get(order_number=order_number, payment__transaction_id=transaction_id, is_ordered=True)
-    
-#     ordered_food = OrderedFood.objects.filter(order=order)
-
-#     subtotal = 0
-#     for item in ordered_food:
-#         subtotal += (item.price * item.quantity)
-
-#     tax_data = json.loads(order.tax_data)
-#     print(tax_data)
-#     context = {
-#         'order': order,
-#         'ordered_food': ordered_food,
-#         'subtotal': subtotal,
-#         'tax_data': tax_data,
-#     }
-#     return render(request, 'orders/order_complete.html')
-
-
-# def order_complete(request):
-#     return render(request, 'orders/order_complete.html')
     
         
 def order_complete(request):

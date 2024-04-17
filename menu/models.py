@@ -2,6 +2,10 @@ from tabnanny import verbose
 from django.db import models
 from vendor.models import Vendor
 
+from django.utils.text import slugify
+from django.db.models.functions import Length
+
+
 # Create your models here.
 class Category(models.Model):
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
@@ -35,3 +39,18 @@ class FoodItem(models.Model):
 
     def __str__(self):
         return self.food_title
+
+    def save(self, *args, **kwargs):
+        original_slug = slugify(self.food_title)
+        queryset = FoodItem.objects.filter(slug__startswith=original_slug).annotate(slug_len=Length('slug')).order_by('-slug_len')
+        if queryset.exists():
+            last_item = queryset.first()
+            slug_parts = last_item.slug.split('-')
+            if slug_parts[-1].isdigit():
+                new_slug = f"{'-'.join(slug_parts[:-1])}-{int(slug_parts[-1]) + 1}"
+            else:
+                new_slug = f"{original_slug}-1"
+            self.slug = new_slug
+        else:
+            self.slug = original_slug
+        super(FoodItem, self).save(*args, **kwargs)
