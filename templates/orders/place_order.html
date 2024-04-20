@@ -157,6 +157,7 @@
             return actions.order.create({
                 purchase_units: [{
                     amount: {
+                        {% comment %} currency_code: "INR", {% endcomment %}
                         value: grand_total
                     }
                 }]
